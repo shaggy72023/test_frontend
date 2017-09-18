@@ -12,11 +12,14 @@ class Resource(object):
     def resource(self):
         return self._resource
 
-    def all(self):
-        return self.process_result(self.resource.get())
+    def all(self, **options):
+        return self.process_result(self.resource.get(**options))
 
-    def get(self, id):
-        return self.process_result(self.resource.get(id))
+    def get(self, id, **options):
+        return self.process_result(self.resource.get(id, **options))
+
+    def post(self, **options):
+        return self.process_result(self.resource.post(**options))
 
     def process_result(self, result):
 
@@ -33,6 +36,16 @@ class Post(Resource):
         return self._resource.posts
 
 
+class User(Resource):
+
+    @property
+    def resource(self):
+        return self._resource.users
+
+    def login_user(self, **options):
+        return self.process_result(self.resource.login.post(**options))
+
+
 class BackendAPIClient(object):
 
     def __init__(self, api_url):
@@ -41,3 +54,4 @@ class BackendAPIClient(object):
         self.resource = tortilla.wrap(api_url)
 
         self.post = Post(self.resource)
+        self.user = User(self.resource)

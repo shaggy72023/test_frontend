@@ -37,3 +37,19 @@ class APIClientError(Exception):
 
 class PostUnknownAPIClientError(APIClientError):
     code = 'post_unknown'
+
+
+class UsernameExistsAPIClientError(APIClientError):
+    code = 'username_is_exists'
+
+
+class WrongCredentialsAPIClientError(APIClientError):
+    code = 'wrong_credentials'
+
+
+class UserDoesNotExistClientAPIError(APIClientError):
+    code = 'user_does_not_exist'
+
+
+class WrongAuthorizeHeadersAPIClientError(APIClientError):
+    code = 'wrong_authorize_headers'

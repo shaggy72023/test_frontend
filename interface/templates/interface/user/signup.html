@@ -1,0 +1,31 @@
+{% extends 'interface/base.html' %}
+
+{% block body %}
+    {% if messages %}
+        <div class="span12">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message|safe }}
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+    {% block form %}
+        <form action="{% url 'interface:signup' %}" method="post">
+            {% csrf_token %}
+            <label for="email">Email</label>
+            <input name="email" id="email" type="email" required>
+
+            <label for="password">Password</label>
+            <input name="password" id="password" type="password" required>
+
+            <label for="username">Username</label>
+            <input name="username" id="username" type="text" required>
+
+            <button>Sign Up</button>
+        </form>
+
+            <p>Already have account? <a href="{% url 'interface:login' %}">Login here</a></p>
+
+    {% endblock %}
+{% endblock %}
