@@ -85,3 +85,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 BACKEND_API_URL = 'http://localhost:8002/api/'
+
+MAIN_WEBSITE_URL = 'http://localhost:8000'

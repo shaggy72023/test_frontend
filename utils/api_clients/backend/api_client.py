@@ -21,6 +21,9 @@ class Resource(object):
     def post(self, **options):
         return self.process_result(self.resource.post(**options))
 
+    def put(self, **options):
+        return self.process_result(self.resource.put(**options))
+
     def process_result(self, result):
 
         if not result['success']:

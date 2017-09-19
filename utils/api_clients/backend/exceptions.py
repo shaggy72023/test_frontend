@@ -39,10 +39,6 @@ class PostUnknownAPIClientError(APIClientError):
     code = 'post_unknown'
 
 
-class UsernameExistsAPIClientError(APIClientError):
-    code = 'username_is_exists'
-
-
 class WrongCredentialsAPIClientError(APIClientError):
     code = 'wrong_credentials'
 
@@ -53,3 +49,11 @@ class UserDoesNotExistClientAPIError(APIClientError):
 
 class WrongAuthorizeHeadersAPIClientError(APIClientError):
     code = 'wrong_authorize_headers'
+
+
+class WrongActivationCodeApiClientError(APIClientError):
+    code = 'wrong_activation_code'
+
+
+class FormValidationFailsApiClientError(APIClientError):
+    code = 'form_validation_fails'
