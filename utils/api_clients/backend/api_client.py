@@ -49,6 +49,12 @@ class User(Resource):
         return self.process_result(self.resource.login.post(**options))
 
 
+class Comment(Resource):
+    @property
+    def resource(self):
+        return self._resource.comments
+
+
 class BackendAPIClient(object):
 
     def __init__(self, api_url):
@@ -58,3 +64,4 @@ class BackendAPIClient(object):
 
         self.post = Post(self.resource)
         self.user = User(self.resource)
+        self.comment = Comment(self.resource)

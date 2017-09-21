@@ -1,5 +1,7 @@
 {% extends 'interface/base.html' %}
 
+{% load post %}
+
 {% block body %}
 
     <a href="{% url 'interface:post:list' %}">&larr; back to overview</a>
@@ -7,6 +9,29 @@
     <h1>{{ post.subject }}</h1>
     <p>{{ post.content }}</p>
 
+    {% for comment in comments.values %}
+        <ul class="list-group">
+            <li class="list-group-item">
+                <img src="{{ comment.author_email|gravatar_url:150 }}" width="70" height="70">
+                <p>{{ comment.author_username }}</p>
+                <p>{{ comment.content }}</p>
+                <p>{{ comment.posted }}</p>
+            </li>
+        </ul>
+    {% endfor %}
+
     <a href="{% url 'interface:post:list' %}">&larr; back to overview</a>
+
+    {% if user_authenticated %}
+        <form method="post" action="{% url 'interface:comment' %}">
+        {% csrf_token %}
+            <textarea name="content" placeholder="Comment"></textarea>
+            <input type="hidden" value="{{ post.id }}" name="post">
+            <button>Post comment</button>
+        </form>
+    {% else %}
+        <p>You need to login to post comments</p>
+        <a href="{% url 'interface:user:list' %}">Login here</a>
+    {% endif %}
 
 {% endblock %}

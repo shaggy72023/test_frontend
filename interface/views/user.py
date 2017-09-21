@@ -1,7 +1,6 @@
 import json
 
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.contrib import messages
@@ -18,6 +17,9 @@ from utils.api_clients.backend import FormValidationFailsApiClientError, WrongCr
 class SighUp(BackendMixin, View):
 
     def get(self, request):
+        if 'access_token' in request.session:
+            return redirect('interface:account')
+
         return render(request, 'interface/user/signup.html')
 
     def post(self, request):
@@ -27,7 +29,8 @@ class SighUp(BackendMixin, View):
             response = self.backend.user.post(data=json.dumps(form_data))
 
         except FormValidationFailsApiClientError as e:
-            messages.error(request, e.message)
+            for message in e.message:
+                messages.error(request, message)
             return render(request, 'interface/user/signup.html')
 
         request.session['access_token'] = response['access_token']
@@ -38,6 +41,10 @@ class SighUp(BackendMixin, View):
 class Login(BackendMixin, View):
 
     def get(self, request):
+
+        if 'access_token' in request.session:
+            return redirect('interface:account')
+
         return render(request, 'interface/user/login.html')
 
     def post(self, request):
@@ -65,10 +72,10 @@ class Account(BackendMixin, View):
 
         except WrongAuthorizeHeadersAPIClientError:
             request.session.flush()
-            return HttpResponseForbidden('403 Forbidden')
+            return redirect('interface:login')
 
         except UserDoesNotExistClientAPIError:
-            return HttpResponseForbidden('403 Forbidden')
+            return redirect('interface:login')
 
         return render(request, 'interface/user/account.html', {'user': user})
 

@@ -19,3 +19,9 @@ class View(BackendMixin, PostMixin, DetailView):
 
     def get_object(self, queryset=None):
         return self.post
+
+    def get_context_data(self, **kwargs):
+        context = super(View, self).get_context_data(**kwargs)
+        context['comments'] = self.post.comments
+        context['user_authenticated'] = 'access_token' in self.request.session
+        return context

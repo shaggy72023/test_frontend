@@ -1,8 +1,8 @@
 {% extends 'interface/base.html' %}
 
 {% block body %}
-    <p>{{ user.user_id }}</p>
-    <p>{{ user.username }}</p>
-    <a href="{% url 'interface:logout' %}">Logout</a>
+    <p>User id: {{ user.user_id }}</p>
+    <p>User username: {{ user.username }}</p>
+    <a href="{% url 'interface:logout' %}">Logout</a><br>
     <a href="{% url 'interface:post:list'%}">View all posts</a>
 {% endblock %}

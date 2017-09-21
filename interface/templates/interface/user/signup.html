@@ -1,34 +1,38 @@
 {% extends 'interface/base.html' %}
 
 {% block body %}
-    {% if messages %}
-        <div class="span12">
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-                {{ message|safe }}
-            </div>
-        {% endfor %}
-        </div>
-    {% endif %}
-    {% block form %}
-        <form action="{% url 'interface:signup' %}" method="post">
-            {% csrf_token %}
-            <label for="email">Email</label>
-            <input name="email" id="email" type="email" required>
+    <div class="row justify-content-md-center">
+        {% if messages %}
 
-            <label for="password">Password</label>
-            <input name="password1" id="password" type="password" required>
+            {% for message in messages %}
+                <div class="alert alert-danger col-md-10">
+                    {{ message|safe }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% block form %}
+            <form action="{% url 'interface:signup' %}" method="post" class="col-md-6">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input name="username" id="username" type="text" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input name="email" id="email" type="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input name="password1" id="password" type="password" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password again</label>
+                    <input name="password2" id="password" type="password" class="form-control" required>
+                </div>
+                <button class="btn btn-primary">Sign Up</button>
+                 Already have account? <a href="{% url 'interface:login' %}">Login here</a>
+            </form>
 
-            <label for="password">Password again</label>
-            <input name="password2" id="password" type="password" required>
-
-            <label for="username">Username</label>
-            <input name="username" id="username" type="text" required>
-
-            <button>Sign Up</button>
-        </form>
-
-            <p>Already have account? <a href="{% url 'interface:login' %}">Login here</a></p>
-
-    {% endblock %}
+        {% endblock %}
+    </div>
 {% endblock %}
