@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Activated</title>
-</head>
-<body>
-    <p>email activated</p>
+{% extends 'interface/base.html' %}
+
+{% block body %}
+    <p>Account activated</p>
     <a href="{% url 'interface:account' %}">Go to account</a>
     <a href="{% url 'interface:post:list'%}">View all posts</a>
-
-</body>
-</html>
+{% endblock %}

@@ -1,5 +1,6 @@
 import hashlib
 import urllib
+
 from django import template
 
 register = template.Library()

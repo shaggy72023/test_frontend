@@ -15,7 +15,6 @@
                 <img src="{{ comment.author_email|gravatar_url:150 }}" width="70" height="70">
                 <p>{{ comment.author_username }}</p>
                 <p>{{ comment.content }}</p>
-                <p>{{ comment.posted }}</p>
             </li>
         </ul>
     {% endfor %}
@@ -30,8 +29,7 @@
             <button>Post comment</button>
         </form>
     {% else %}
-        <p>You need to login to post comments</p>
-        <a href="{% url 'interface:user:list' %}">Login here</a>
+        <p>You have to be logged in to post comments. <a href="{% url 'interface:login' %}">Login here</a></p>
     {% endif %}
 
 {% endblock %}

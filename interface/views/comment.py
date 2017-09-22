@@ -1,10 +1,11 @@
-import json
-
 from django.shortcuts import redirect
 from django.views.generic import View
+from django.utils.decorators import method_decorator
+
 from interface.mixins import BackendMixin
 from decorators.custom_decorators import active_session_required
-from django.utils.decorators import method_decorator
+
+import json
 
 
 class Comment(BackendMixin, View):
